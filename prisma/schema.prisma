@@ -11,23 +11,26 @@ datasource db {
 }
 
 model Resident{
-  id String @id @default(uuid())
+  id Int @default(autoincrement()) @id
   name String
   houseNumber String
   streetNumber String
-  phoneNumber String
-  createdOn DateTime?
-  updatedOn DateTime?
+  phoneNumber String?
+  floor String?
+  createdOn DateTime @default(now())
+  updatedOn DateTime? @updatedAt
   active String
+  designatedAmount Int
   Payment Payment[]
 }
 
 model Payment{
-  id String @id @default(uuid())
-  paymentDate DateTime
+  id Int @default(autoincrement()) @id
+  paymentMonth String
+  PaymentYear String
   amount Int
-  resId String
-  createdOn DateTime?
-  updatedOn DateTime?
+  resId Int
+  createdOn DateTime @default(now())
+  updatedOn DateTime? @updatedAt
   resident Resident @relation(fields: [resId], references: [id])
 }
